@@ -6,14 +6,15 @@ using Xamarin.Forms;
 
 namespace FuckPrivacy.ViewModels
 {
-    public class LoginViewModel : INotifyPropertyChanged
+    public class SignInViewModel : INotifyPropertyChanged
     {
         public Action DisplayInvalidLoginPrompt;
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
         private string email;
+        private string password1;
+        private string password2;
 
-        private string password;
 
         public string Email {
             get { return email; }
@@ -23,29 +24,32 @@ namespace FuckPrivacy.ViewModels
             }
         }
 
-        public string Password {
-            get { return password; }
+        public string Password1 {
+            get { return password1; }
             set {
-                password = value;
+                password1 = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("Password"));
+            }
+        }
+
+        public string Password2 {
+            get { return password2; }
+            set {
+                password2 = value;
                 PropertyChanged(this, new PropertyChangedEventArgs("Password"));
             }
         }
 
         public ICommand SubmitCommand { protected set; get; }
 
-        public ICommand SignInCommand { protected set; get; }
-
-        public LoginViewModel() {
+        public SignInViewModel() {
             SubmitCommand = new Command(OnSubmit);
-            SignInCommand = new Command(OnSignIn);
         }
 
         public void OnSubmit() {
-            // Todo Get user and login
-        }
-
-        public void OnSignIn() {
-            Application.Current.MainPage = new SignInPage();
+            if (Password1 == Password2) {
+                // Todo create new User
+            }
         }
     }
 }

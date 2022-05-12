@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using XF_Login.ViewModels;
+using FuckPrivacy.ViewModels;
 
 namespace FuckPrivacy.Pages
 {
