@@ -2,6 +2,11 @@
 {
     public abstract class AUser
     {
-        public abstract void Menu();
+        public string Username { get; }
+        public abstract void StartPage();
+
+        protected AUser(string username) {
+            Username = username;
+        }
     }
 }

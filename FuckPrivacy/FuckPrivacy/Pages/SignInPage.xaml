@@ -13,7 +13,7 @@
                            PlaceholderColor="White" HeightRequest="40"
                            Keyboard="Email"
                            TextColor="White" />
-                    <Entry x:Name="Password1" Text="{Binding Passwor2}" Placeholder="New password"
+                    <Entry x:Name="Password1" Text="{Binding Password1}" Placeholder="New password"
                            PlaceholderColor="White" HeightRequest="40"
                            IsPassword="True"
                            TextColor="White" />

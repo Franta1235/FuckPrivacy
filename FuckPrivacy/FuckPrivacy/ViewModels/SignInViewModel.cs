@@ -8,34 +8,33 @@ namespace FuckPrivacy.ViewModels
 {
     public class SignInViewModel : INotifyPropertyChanged
     {
-        public Action DisplayInvalidLoginPrompt;
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
-        private string email;
-        private string password1;
-        private string password2;
+        private string _email;
+        private string _password1;
+        private string _password2;
 
 
         public string Email {
-            get { return email; }
+            get { return _email; }
             set {
-                email = value;
+                _email = value;
                 PropertyChanged(this, new PropertyChangedEventArgs("Email"));
             }
         }
 
         public string Password1 {
-            get { return password1; }
+            get { return _password1; }
             set {
-                password1 = value;
+                _password1 = value;
                 PropertyChanged(this, new PropertyChangedEventArgs("Password"));
             }
         }
 
         public string Password2 {
-            get { return password2; }
+            get { return _password2; }
             set {
-                password2 = value;
+                _password2 = value;
                 PropertyChanged(this, new PropertyChangedEventArgs("Password"));
             }
         }

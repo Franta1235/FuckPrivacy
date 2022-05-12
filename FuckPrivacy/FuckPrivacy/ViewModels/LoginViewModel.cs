@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Windows.Input;
 using FuckPrivacy.Pages;
+using FuckPrivacy.Users;
 using Xamarin.Forms;
 
 namespace FuckPrivacy.ViewModels
@@ -11,22 +12,22 @@ namespace FuckPrivacy.ViewModels
         public Action DisplayInvalidLoginPrompt;
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
-        private string email;
+        private string _email;
 
-        private string password;
+        private string _password;
 
         public string Email {
-            get { return email; }
+            get { return _email; }
             set {
-                email = value;
+                _email = value;
                 PropertyChanged(this, new PropertyChangedEventArgs("Email"));
             }
         }
 
         public string Password {
-            get { return password; }
+            get { return _password; }
             set {
-                password = value;
+                _password = value;
                 PropertyChanged(this, new PropertyChangedEventArgs("Password"));
             }
         }
@@ -40,11 +41,18 @@ namespace FuckPrivacy.ViewModels
             SignInCommand = new Command(OnSignIn);
         }
 
-        public void OnSubmit() {
+        private void OnSubmit() {
+            if (Email == "Franta" && Password == "Frantisek1235.") {
+                var user = new User("Franta");
+                user.StartPage();
+            }
+            else {
+                DisplayInvalidLoginPrompt();
+            }
             // Todo Get user and login
         }
 
-        public void OnSignIn() {
+        private static void OnSignIn() {
             Application.Current.MainPage = new SignInPage();
         }
     }
