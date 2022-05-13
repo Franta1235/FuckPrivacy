@@ -16,7 +16,7 @@ namespace FuckPrivacy.ViewModels
 
         private string _password;
 
-        private string Email {
+        public string Email {
             get => _email;
             set {
                 _email = value;
@@ -24,7 +24,7 @@ namespace FuckPrivacy.ViewModels
             }
         }
 
-        private string Password {
+        public string Password {
             get => _password;
             set {
                 _password = value;

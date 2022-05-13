@@ -6,12 +6,17 @@ namespace FuckPrivacy.Users
 {
     public static class UserManager
     {
-        public static AUser Login(string username, string password) {
-            throw new NotImplementedException();
+        public static AUser Login(string email, string password) {
+            // TODO
+            return new User(email, password);
         }
 
-        public static AUser SignIn(string username, string password1, string password2) {
-            throw new NotImplementedException();
+        public static AUser SignIn(string email, string password1, string password2) {
+            if (UserExist(email)) throw new ArgumentException("User exist");
+            if (password1 != password2) throw new ArgumentException("Passwords must be same");
+
+            // TODO Save user to database
+            return new User(email, password1);
         }
 
         public static bool UserExist(string email) {

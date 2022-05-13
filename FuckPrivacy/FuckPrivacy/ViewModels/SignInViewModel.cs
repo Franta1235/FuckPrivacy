@@ -20,7 +20,7 @@ namespace FuckPrivacy.ViewModels
         private string _password2;
 
 
-        private string Email {
+        public string Email {
             get => _email;
             set {
                 _email = value;
@@ -28,19 +28,19 @@ namespace FuckPrivacy.ViewModels
             }
         }
 
-        private string Password1 {
+        public string Password1 {
             get => _password1;
             set {
                 _password1 = value;
-                PropertyChanged(this, new PropertyChangedEventArgs("Password"));
+                PropertyChanged(this, new PropertyChangedEventArgs("Password1"));
             }
         }
 
-        private string Password2 {
+        public string Password2 {
             get => _password2;
             set {
                 _password2 = value;
-                PropertyChanged(this, new PropertyChangedEventArgs("Password"));
+                PropertyChanged(this, new PropertyChangedEventArgs("Password2"));
             }
         }
 
@@ -49,9 +49,21 @@ namespace FuckPrivacy.ViewModels
         public SignInViewModel() {
             SubmitCommand = new Command(OnSubmit);
         }
-        
-        private void OnSubmit() {
-            UserManager.SignIn(Email,Password1,Password2).StartPage();
+
+        public void OnSubmit() {
+            try {
+                UserManager.SignIn(Email, Password1, Password2).StartPage();
+            }
+            catch (ArgumentException e) {
+                switch (e.Message) {
+                    case "User exist":
+                        DisplayUserExistPrompt();
+                        break;
+                    case "Passwords must be same":
+                        DisplayPasswordsNotEqualsPrompt();
+                        break;
+                }
+            }
         }
     }
 }

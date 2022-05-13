@@ -14,7 +14,7 @@ namespace FuckPrivacy.ViewModels
         private string _text;
         
         public string Text {
-            get { return _text; }
+            get => _text;
             set {
                 _text = value;
                 PropertyChanged(this, new PropertyChangedEventArgs("Text"));
