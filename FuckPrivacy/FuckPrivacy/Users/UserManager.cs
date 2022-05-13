@@ -8,6 +8,7 @@ namespace FuckPrivacy.Users
     {
         public static AUser Login(string email, string password) {
             // TODO
+            if (email != "koznar.franta@gmail.com" || password != "Frantisek1235.") throw new ArgumentException();
             return new User(email, password);
         }
 

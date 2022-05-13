@@ -42,7 +42,12 @@ namespace FuckPrivacy.ViewModels
         }
 
         private void OnSubmit() {
-            UserManager.Login(Email, Password).StartPage();
+            try {
+                UserManager.Login(Email, Password).StartPage();
+            }
+            catch (ArgumentException) {
+                DisplayInvalidLoginPrompt();
+            }
         }
 
         private static void OnSignIn() {
