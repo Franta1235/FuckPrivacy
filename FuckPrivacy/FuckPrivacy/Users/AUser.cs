@@ -3,10 +3,16 @@
     public abstract class AUser
     {
         public string Username { get; }
+        private string Password { get; }
         public abstract void StartPage();
 
-        protected AUser(string username) {
+        protected AUser(string username, string password) {
             Username = username;
+            this.Password = password;
+        }
+
+        public bool CorrectPassword(string ps) {
+            return ps == Password;
         }
     }
 }

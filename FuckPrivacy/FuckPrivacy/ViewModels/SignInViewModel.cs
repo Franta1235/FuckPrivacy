@@ -1,13 +1,18 @@
 ﻿using System;
 using System.ComponentModel;
+using System.IO;
 using System.Windows.Input;
 using FuckPrivacy.Pages;
+using FuckPrivacy.Users;
 using Xamarin.Forms;
 
 namespace FuckPrivacy.ViewModels
 {
     public class SignInViewModel : INotifyPropertyChanged
     {
+        public Action DisplayUserExistPrompt;
+        public Action DisplayPasswordsNotEqualsPrompt;
+
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
         private string _email;
@@ -15,24 +20,24 @@ namespace FuckPrivacy.ViewModels
         private string _password2;
 
 
-        public string Email {
-            get { return _email; }
+        private string Email {
+            get => _email;
             set {
                 _email = value;
                 PropertyChanged(this, new PropertyChangedEventArgs("Email"));
             }
         }
 
-        public string Password1 {
-            get { return _password1; }
+        private string Password1 {
+            get => _password1;
             set {
                 _password1 = value;
                 PropertyChanged(this, new PropertyChangedEventArgs("Password"));
             }
         }
 
-        public string Password2 {
-            get { return _password2; }
+        private string Password2 {
+            get => _password2;
             set {
                 _password2 = value;
                 PropertyChanged(this, new PropertyChangedEventArgs("Password"));
@@ -44,11 +49,9 @@ namespace FuckPrivacy.ViewModels
         public SignInViewModel() {
             SubmitCommand = new Command(OnSubmit);
         }
-
-        public void OnSubmit() {
-            if (Password1 == Password2) {
-                // Todo create new User
-            }
+        
+        private void OnSubmit() {
+            UserManager.SignIn(Email,Password1,Password2).StartPage();
         }
     }
 }

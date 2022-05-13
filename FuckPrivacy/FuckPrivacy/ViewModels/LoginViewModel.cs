@@ -16,16 +16,16 @@ namespace FuckPrivacy.ViewModels
 
         private string _password;
 
-        public string Email {
-            get { return _email; }
+        private string Email {
+            get => _email;
             set {
                 _email = value;
                 PropertyChanged(this, new PropertyChangedEventArgs("Email"));
             }
         }
 
-        public string Password {
-            get { return _password; }
+        private string Password {
+            get => _password;
             set {
                 _password = value;
                 PropertyChanged(this, new PropertyChangedEventArgs("Password"));
@@ -34,7 +34,7 @@ namespace FuckPrivacy.ViewModels
 
         public ICommand SubmitCommand { protected set; get; }
 
-        public ICommand SignInCommand { protected set; get; }
+        public ICommand SignInCommand { set; get; }
 
         public LoginViewModel() {
             SubmitCommand = new Command(OnSubmit);
@@ -42,14 +42,7 @@ namespace FuckPrivacy.ViewModels
         }
 
         private void OnSubmit() {
-            if (Email == "Franta" && Password == "Frantisek1235.") {
-                var user = new User("Franta");
-                user.StartPage();
-            }
-            else {
-                DisplayInvalidLoginPrompt();
-            }
-            // Todo Get user and login
+            UserManager.Login(Email, Password).StartPage();
         }
 
         private static void OnSignIn() {

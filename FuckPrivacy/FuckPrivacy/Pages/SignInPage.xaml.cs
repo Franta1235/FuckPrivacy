@@ -15,6 +15,9 @@ namespace FuckPrivacy.Pages
         public SignInPage() {
             var vm = new SignInViewModel();
             this.BindingContext = vm;
+            vm.DisplayUserExistPrompt += () => DisplayAlert("Error", "User already exist.", "OK");
+            vm.DisplayPasswordsNotEqualsPrompt += () => DisplayAlert("Error", "Passwords are not same.", "OK");
+
             InitializeComponent();
 
             Email.Completed += (object sender, EventArgs e) => {

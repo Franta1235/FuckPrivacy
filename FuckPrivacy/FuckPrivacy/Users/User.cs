@@ -9,7 +9,7 @@ namespace FuckPrivacy.Users
 {
     public class User : AUser
     {
-        public User(string username) : base(username) {
+        public User(string username, string password) : base(username, password) {
         }
 
         public override void StartPage() {
