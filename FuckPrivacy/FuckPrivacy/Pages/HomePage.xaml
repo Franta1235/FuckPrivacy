@@ -5,7 +5,7 @@
              x:Class="FuckPrivacy.Pages.HomePage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Hello, world!"
+            <Label x:Name="Text" Text="{Binding Text}"
                    VerticalOptions="CenterAndExpand"
                    HorizontalOptions="CenterAndExpand" />
         </StackLayout>

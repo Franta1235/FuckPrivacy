@@ -43,7 +43,9 @@ namespace FuckPrivacy.ViewModels
 
         private void OnSubmit() {
             try {
-                UserManager.Login(Email, Password).HomePage();
+                var user = UserManager.Login(Email, Password);
+                LoggedUser.User = user;
+                user.HomePage();
             }
             catch (ArgumentException) {
                 DisplayInvalidLoginPrompt();

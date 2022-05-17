@@ -52,7 +52,9 @@ namespace FuckPrivacy.ViewModels
 
         public void OnSubmit() {
             try {
-                UserManager.SignIn(Email, Password1, Password2).HomePage();
+                var user = UserManager.SignIn(Email, Password1, Password2);
+                LoggedUser.User = user;
+                user.HomePage();
             }
             catch (ArgumentException e) {
                 switch (e.Message) {
