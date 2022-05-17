@@ -4,7 +4,7 @@
     {
         public string Username { get; }
         private string Password { get; }
-        public abstract void StartPage();
+        public abstract void HomePage();
 
         protected AUser(string username, string password) {
             Username = username;

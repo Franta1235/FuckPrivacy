@@ -12,8 +12,8 @@ namespace FuckPrivacy.Users
         public User(string username, string password) : base(username, password) {
         }
 
-        public override void StartPage() {
-            Application.Current.MainPage = new StartPage(this);
+        public override void HomePage() {
+            Application.Current.MainPage = new BottomBarMenu();
         }
     }
 }
