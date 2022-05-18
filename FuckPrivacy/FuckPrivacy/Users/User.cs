@@ -1,19 +1,25 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Windows.Input;
+using System.Collections.Generic;
 using FuckPrivacy.Pages;
-using FuckPrivacy.Users;
 using Xamarin.Forms;
 
 namespace FuckPrivacy.Users
 {
     public class User : AUser
     {
-        public User(string username, string password) : base(username, password) {
-        }
-
+        public List<Friend> Friends;
+        public List<CloseFriend> CloseFriends;
+        
         public override void HomePage() {
             Application.Current.MainPage = new BottomBarMenu();
+        }
+
+        protected List<Friend> GetFriends() {
+            throw new NotImplementedException();
+        }
+
+        protected List<CloseFriend> GetCloseFriends() {
+            throw new NotImplementedException();
         }
     }
 }

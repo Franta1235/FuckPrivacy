@@ -9,7 +9,7 @@ namespace FuckPrivacy.Users
         public static AUser Login(string email, string password) {
             // TODO
             if (email != "koznar.franta@gmail.com" || password != "Frantisek1235.") throw new ArgumentException();
-            return new User(email, password);
+            return GetUser(email);
         }
 
         public static AUser SignIn(string email, string password1, string password2) {
@@ -17,13 +17,26 @@ namespace FuckPrivacy.Users
             if (password1 != password2) throw new ArgumentException("Passwords must be same");
 
             // TODO Save user to database
-            return new User(email, password1);
+            return GetUser(email);
         }
 
         public static bool UserExist(string email) {
             // TODO 
             //return Directory.Exists($@"C:\Users\Fanda\RiderProjects\FuckPrivacy\FuckPrivacy\FuckPrivacy\Users\Data\{email}");
             return email == "koznar.franta@gmail.com";
+        }
+
+        private static User GetUser(string username) {
+            var user = new User() {
+                Username = username,
+                ProfilePicture = GetProfilePicture(username)
+            };
+            return user;
+        }
+
+        private static string GetProfilePicture(string username) {
+            // TODO
+            return "beerIcon";
         }
     }
 }
