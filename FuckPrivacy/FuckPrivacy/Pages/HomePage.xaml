@@ -3,12 +3,70 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FuckPrivacy.Pages.HomePage"
-             BackgroundColor="Black">
+             BackgroundColor="Black"
+             NavigationPage.HasNavigationBar="False"
+             x:Name="homePage">
+
     <ContentPage.Content>
-        <StackLayout>
-            <Label x:Name="Text" Text="{Binding Text}"
-                   VerticalOptions="CenterAndExpand"
-                   HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <ImageButton Source="settingsIcon"
+                         HorizontalOptions="End"
+                         VerticalOptions="Start"
+                         HeightRequest="30"
+                         BackgroundColor="Transparent"
+                         Grid.Row="0"
+                         Margin="20" />
+
+            <ImageButton x:Name="ProfilePicture"
+                         HorizontalOptions="Start"
+                         VerticalOptions="Start"
+                         HeightRequest="30"
+                         BackgroundColor="Transparent"
+                         Grid.Row="0"
+                         Margin="20" />
+
+            <Label Grid.Row="0"
+                   Text="Welcome!"
+                   FontSize="20"
+                   TextColor="White"
+                   Margin="60,20,20,10" />
+
+            <CollectionView Grid.Row="1"
+                            x:Name="Photos">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical"
+                                     Span="2">
+                    </GridItemsLayout>
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Padding="10,10,0,0">
+                            <Frame CornerRadius="5"
+                                   Padding="1">
+                                <StackLayout Orientation="Horizontal">
+                                    <Image Source="{Binding Source={x:Reference Photos}, Path=BindingContext.Image}"
+                                           HeightRequest="60"
+                                           Margin="10,0,10,0" />
+                                    <Label Grid.Column="1"
+                                           Text="{Binding Source={x:Reference Photos}, Path=BindingContext.Text}"
+                                           FontAttributes="Bold"
+                                           Margin="0,20,10,0" />
+                                </StackLayout>
+                            </Frame>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

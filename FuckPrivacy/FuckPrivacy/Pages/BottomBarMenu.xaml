@@ -18,7 +18,9 @@
         </NavigationPage>
 
         <NavigationPage Title="Search" IconImageSource="searchIcon">
-
+            <x:Arguments>
+                <local:SearchPage />
+            </x:Arguments>
         </NavigationPage>
 
         <NavigationPage Title="Randomize" IconImageSource="randomizeIcon">

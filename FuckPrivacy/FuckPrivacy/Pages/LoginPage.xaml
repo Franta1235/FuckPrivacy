@@ -2,12 +2,13 @@
 
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="FuckPrivacy.Pages.LoginPage">
+             x:Class="FuckPrivacy.Pages.LoginPage"
+             BackgroundColor="Black">
     <ContentPage.Content>
         <StackLayout Orientation="Vertical" Padding="30" Spacing="40">
             <BoxView HeightRequest="10" />
             <Image HorizontalOptions="Center" WidthRequest="300" Source="maco.jpg" />
-            <Frame BackgroundColor="#BF043055" HasShadow="False">
+            <Frame BackgroundColor="DarkGray" HasShadow="False">
                 <StackLayout Orientation="Vertical" Spacing="10">
                     <Entry x:Name="Email" Text="{Binding Email}" Placeholder="Email"
                            PlaceholderColor="White" HeightRequest="40"
@@ -21,11 +22,11 @@
             </Frame>
             <Button Command="{Binding SubmitCommand}" Text="Login" TextColor="White"
                     FontAttributes="Bold" FontSize="Large" HorizontalOptions="FillAndExpand"
-                    BackgroundColor="#088da5" />
+                    BackgroundColor="Gray" />
 
             <Button Command="{Binding SignInCommand}" Text="Sign In" TextColor="White"
                     FontAttributes="Bold" FontSize="Large" HorizontalOptions="FillAndExpand"
-                    BackgroundColor="#088da5" />
+                    BackgroundColor="Gray" />
 
         </StackLayout>
     </ContentPage.Content>
