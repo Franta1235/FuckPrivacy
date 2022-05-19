@@ -1,23 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using FuckPrivacy.Users;
 using MySql.Data.MySqlClient;
 
-namespace Server
+namespace Server.Servers
 {
     public class MySqlServer
     {
-        private MySqlConnection _connection;
-
-        public MySqlServer() {
-            Start();
-        }
+        private readonly MySqlConnection _connection;
 
         /// <summary>
-        /// Initializes server
-        /// Connects to database
+        /// Initializes server and MySQL connection
         /// </summary>
-        public void Start() {
+        public MySqlServer() {
             const string server = "localhost";
             const string databaseName = "FuckPrivacy";
             const string userName = "root";
@@ -42,17 +38,24 @@ namespace Server
         /// Finds user in database users
         /// </summary>
         /// <param name="username"></param>
+        /// <param name="password"></param>
         /// <exception cref="ArgumentNullException">If user does not exist in database</exception>
-        public void GetUser(string username) {
+        /// <exception cref="ArgumentException">If is passed wrong password</exception>
+        /// <exception cref="NotImplementedException"></exception>
+        public User GetUser(string username, string password) {
             if (UserExist(username) == false) throw new ArgumentNullException();
             var sqlCommand = $"Select * from users where username='{username}'";
             var cmd = new MySqlCommand(sqlCommand, _connection);
             using (var reader = cmd.ExecuteReader()) {
                 while (reader.Read()) {
-                    Console.WriteLine(reader["username"].ToString());
-                    Console.WriteLine(reader["password"].ToString());
+                    var un = reader["username"].ToString();
+                    var ps = reader["password"].ToString();
+                    if (password != ps) throw new ArgumentException();
+                    throw new NotImplementedException();
                 }
             }
+
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -65,7 +68,11 @@ namespace Server
             return users.Any(user => user[0] == username);
         }
 
-        public IEnumerable<string[]> GetUsers() {
+        /// <summary>
+        /// Fetches user's username and password to list of arrays
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerable<string[]> GetUsers() {
             var users = new List<string[]>();
             const string sqlCommand = "Select * from users";
             var cmd = new MySqlCommand(sqlCommand, _connection);
