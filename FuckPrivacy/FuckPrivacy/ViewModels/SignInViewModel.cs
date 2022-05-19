@@ -12,6 +12,7 @@ namespace FuckPrivacy.ViewModels
     {
         public Action DisplayUserExistPrompt;
         public Action DisplayPasswordsNotEqualsPrompt;
+        public Action DisplayServerError;
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
@@ -65,6 +66,10 @@ namespace FuckPrivacy.ViewModels
                         DisplayPasswordsNotEqualsPrompt();
                         break;
                 }
+            }
+            catch (Exception e) {
+                App.Current.MainPage.DisplayAlert("Error", e.ToString(), "OK");
+                //DisplayServerError();
             }
         }
     }

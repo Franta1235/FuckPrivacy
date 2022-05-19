@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Net.NetworkInformation;
+using FuckPrivacy.Server;
+using Xamarin.Forms;
 
 namespace FuckPrivacy.Users
 {
@@ -12,18 +14,16 @@ namespace FuckPrivacy.Users
             return GetUser(email);
         }
 
-        public static AUser SignIn(string email, string password1, string password2) {
-            if (UserExist(email)) throw new ArgumentException("User exist");
+        public static AUser SignIn(string username, string password1, string password2) {
+            if (UserExist(username)) throw new ArgumentException("User exist");
             if (password1 != password2) throw new ArgumentException("Passwords must be same");
 
             // TODO Save user to database
-            return GetUser(email);
+            return GetUser(username);
         }
 
-        public static bool UserExist(string email) {
-            // TODO 
-            //return Directory.Exists($@"C:\Users\Fanda\RiderProjects\FuckPrivacy\FuckPrivacy\FuckPrivacy\Users\Data\{email}");
-            return email == "koznar.franta@gmail.com";
+        public static bool UserExist(string username) {
+            return StaticServer.UserExist(username);
         }
 
         private static User GetUser(string username) {

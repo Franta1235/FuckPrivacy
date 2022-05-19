@@ -2,6 +2,7 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using FuckPrivacy.Server;
 
 namespace Server.Servers
 {
@@ -13,7 +14,10 @@ namespace Server.Servers
         // ReSharper disable once InconsistentNaming
         private const string SERVER_IP = "127.0.0.1";
 
-        public SocketServer() {
+        private readonly Server _server;
+
+        public SocketServer(Server server) {
+            _server = server;
             //---listen at the specified IP and port no.---
             var localAdd = IPAddress.Parse(SERVER_IP);
             var listener = new TcpListener(localAdd, PORT_NO);
@@ -32,15 +36,26 @@ namespace Server.Servers
                 var bytesRead = nwStream.Read(buffer, 0, client.ReceiveBufferSize);
 
                 //---convert the data received into a string---
-                var dataReceived = Encoding.ASCII.GetString(buffer, 0, bytesRead);
-                Console.WriteLine("Received : " + dataReceived);
+                var dataReceived = Encoding.ASCII.GetString(buffer, 0, bytesRead).Split(';');
+                Console.WriteLine($"{dataReceived[0]}: {dataReceived[1]}");
 
-                //---write back the text to the client---
-                Console.WriteLine("Sending back : " + dataReceived);
-                nwStream.Write(buffer, 0, bytesRead);
+                switch ((ServerMethods) Enum.Parse(typeof(ServerMethods), dataReceived[0], true)) {
+                    case ServerMethods.UserExist:
+                        var bytesToSend = UserExist(dataReceived[1]);
+                        nwStream.Write(bytesToSend, 0, bytesToSend.Length);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+
                 client.Close();
             }
             // ReSharper disable once FunctionNeverReturns
+        }
+
+        private byte[] UserExist(string data) {
+            var bytesToSend = Encoding.ASCII.GetBytes(_server.UserExist(data).ToString());
+            return bytesToSend;
         }
     }
 }
