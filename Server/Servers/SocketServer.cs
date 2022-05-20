@@ -9,18 +9,18 @@ namespace Server.Servers
     public class SocketServer
     {
         // ReSharper disable once InconsistentNaming
-        private const int PORT_NO = 5000;
+        private const int PORT_NO = 8001;
 
         // ReSharper disable once InconsistentNaming
-        private const string SERVER_IP = "127.0.0.1";
+        private const string SERVER_IP = "109.80.246.1";
 
         private readonly Server _server;
 
         public SocketServer(Server server) {
             _server = server;
             //---listen at the specified IP and port no.---
-            var localAdd = IPAddress.Parse(SERVER_IP);
-            var listener = new TcpListener(localAdd, PORT_NO);
+            //var localAdd = IPAddress.Parse(SERVER_IP);
+            var listener = new TcpListener(IPAddress.Any, PORT_NO);
             Console.WriteLine("Socket server started.");
             listener.Start();
 
