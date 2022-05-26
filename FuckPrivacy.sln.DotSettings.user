@@ -1,0 +1,18 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/Hierarchy/Build/SolBuilderDuo/CustomGlobalProperties/=PreferredUILang/@EntryIndexedValue">en-US</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=81c3ebac_002D7297_002D4f82_002Dacc5_002D302fb4b0e1fa/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="TestUserExist1" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::657BFAAF-CA30-4947-A13C-FD372DF82AA1::.NETFramework,Version=v4.8::FuckPrivacyTests.ViewModels.SignViewModelTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::657BFAAF-CA30-4947-A13C-FD372DF82AA1::.NETFramework,Version=v4.8::FuckPrivacyTests.Server.ServerTest.TestUserExist1&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=b767d9ee_002Deee3_002D40e4_002Dba1a_002D5f576e4372d2/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="ServerTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::657BFAAF-CA30-4947-A13C-FD372DF82AA1::.NETFramework,Version=v4.8::FuckPrivacyTests.Server.ServerTest&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=bb549a7b_002D5ef5_002D4717_002Dab94_002D871ee46c67fb/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="ServerTest #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::657BFAAF-CA30-4947-A13C-FD372DF82AA1::.NETFramework,Version=v4.8::FuckPrivacyTests.Server.ServerTest&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
