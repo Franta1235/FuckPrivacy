@@ -3,32 +3,18 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
+using FuckPrivacy.Client;
+using FuckPrivacy.Client.Helper;
+using Google.Protobuf.WellKnownTypes;
+using Enum = System.Enum;
 
 namespace Server.Servers
 {
-    // State object for reading client data asynchronously
-    public class StateObject
-    {
-        // Client  socket.
-        public Socket WorkSocket = null;
-
-        // Size of receive buffer.
-        public const int BufferSize = 1024;
-
-        // Receive buffer.
-        public readonly byte[] Buffer = new byte[BufferSize];
-
-        // Received data string.
-        public readonly StringBuilder Sb = new StringBuilder();
-    }
-
     public static class AsynchronousSocketListener
     {
         // Thread signal.
-        public static readonly ManualResetEvent AllDone = new ManualResetEvent(false);
-
-        // Signal for end of file.
-        public const string EndOfFile = "<EOF>";
+        private static readonly ManualResetEvent AllDone = new ManualResetEvent(false);
 
         [Obsolete("Obsolete")]
         public static void StartListening() {
@@ -94,14 +80,27 @@ namespace Server.Servers
 
             // Check for end-of-file tag. If it is not there, read more data.
             var content = state.Sb.ToString();
-            if (content.IndexOf(EndOfFile, StringComparison.Ordinal) > -1) {
+            if (content.IndexOf(AsynchronousClient.EndOfFile, StringComparison.Ordinal) > -1) {
                 // All the data has been read from the client. Display it on the console.
                 Console.WriteLine($"Read {content.Length} bytes from socket.");
-                content = content.Substring(0, content.Length - EndOfFile.Length);
-                Console.WriteLine(content);
+                content = content.Substring(0, content.Length - AsynchronousClient.EndOfFile.Length);
+                var tokens = content.Split(new[] {AsynchronousClient.MethodSplitter}, StringSplitOptions.None);
+
+                var method = tokens[0];
+                var input = tokens[1];
+                var result = string.Empty;
+
+
+                switch ((ServerMethods) Enum.Parse(typeof(ServerMethods), method, true)) {
+                    case ServerMethods.UserExist:
+                        result = MySqlServer.UserExist(input).ToString();
+                        break;
+                    default:
+                        break;
+                }
 
                 // Echo the data back to the client.
-                Send(handler, $"Done{EndOfFile}");
+                Send(handler, $"{result}{AsynchronousClient.EndOfFile}");
             }
             else {
                 // Not all data received. Get more.
@@ -132,14 +131,6 @@ namespace Server.Servers
             catch (Exception e) {
                 Console.WriteLine(e.ToString());
             }
-        }
-    }
-
-    internal static class Program
-    {
-        [Obsolete("Obsolete")]
-        public static void Main(string[] args) {
-            AsynchronousSocketListener.StartListening();
         }
     }
 }

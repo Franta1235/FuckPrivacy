@@ -57,6 +57,10 @@
         <Compile Include="ViewModels\SignViewModelTest.cs" />
     </ItemGroup>
     <ItemGroup>
+      <None Include="App.config" />
+      <None Include="packages.config" />
+    </ItemGroup>
+    <ItemGroup>
       <ProjectReference Include="..\FuckPrivacy\FuckPrivacy.Droid\FuckPrivacy.Droid.csproj">
         <Project>{ec312598-5d03-41de-877f-1d5b687c5bfa}</Project>
         <Name>FuckPrivacy.Droid</Name>
@@ -69,10 +73,10 @@
         <Project>{f6726b80-611e-4b49-90f0-2479ac89a207}</Project>
         <Name>FuckPrivacy</Name>
       </ProjectReference>
-    </ItemGroup>
-    <ItemGroup>
-      <None Include="App.config" />
-      <None Include="packages.config" />
+      <ProjectReference Include="..\Server\Server.csproj">
+        <Project>{530db8f8-f969-48b7-b1f4-f682de1c7a80}</Project>
+        <Name>Server</Name>
+      </ProjectReference>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -1,4 +1,4 @@
-﻿namespace FuckPrivacy.Server
+﻿namespace FuckPrivacy.Client.Helper
 {
     public enum ServerMethods
     {

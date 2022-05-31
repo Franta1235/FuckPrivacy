@@ -5,9 +5,10 @@ namespace Server
 {
     internal static class Program
     {
-        /*
+        /**/
+        [Obsolete("Obsolete")]
         public static void Main(string[] args) {
-            var server = new Servers.Server();
+            Servers.Server.Run();
         }
         /**/
     }

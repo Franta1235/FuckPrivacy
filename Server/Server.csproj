@@ -86,15 +86,9 @@
     <ItemGroup>
         <Compile Include="Program.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
+        <Compile Include="Servers\AsynchronousSocketListener.cs" />
         <Compile Include="Servers\MySqlServer.cs" />
         <Compile Include="Servers\Server.cs" />
-        <Compile Include="Servers\SocketServer.cs" />
-    </ItemGroup>
-    <ItemGroup>
-      <ProjectReference Include="..\FuckPrivacy\FuckPrivacy\FuckPrivacy.csproj">
-        <Project>{f6726b80-611e-4b49-90f0-2479ac89a207}</Project>
-        <Name>FuckPrivacy</Name>
-      </ProjectReference>
     </ItemGroup>
     <ItemGroup>
       <None Include="App.config" />
@@ -103,6 +97,12 @@
     <ItemGroup>
       <Content Include="Servers\MySQL\photos.sql" />
       <Content Include="Servers\MySQL\users.sql" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\FuckPrivacy\FuckPrivacy\FuckPrivacy.csproj">
+        <Project>{f6726b80-611e-4b49-90f0-2479ac89a207}</Project>
+        <Name>FuckPrivacy</Name>
+      </ProjectReference>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

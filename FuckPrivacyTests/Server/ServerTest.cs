@@ -1,5 +1,5 @@
-﻿using FuckPrivacy.Server;
-using NUnit.Framework;
+﻿using NUnit.Framework;
+using FuckPrivacy.Client;
 
 namespace FuckPrivacyTests.Server
 {
@@ -8,12 +8,12 @@ namespace FuckPrivacyTests.Server
     {
         [Test]
         public void TestUserExist1() {
-            Assert.IsTrue(StaticServer.UserExist("Franta"));
+            Assert.IsTrue(AsynchronousClient.UserExist("Franta"));
         }
-        
+
         [Test]
         public void TestUserExist2() {
-            Assert.IsFalse(StaticServer.UserExist("NotExistUserName"));
+            Assert.IsFalse(AsynchronousClient.UserExist("NotExistUserName"));
         }
     }
 }

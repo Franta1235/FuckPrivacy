@@ -6,21 +6,19 @@ using MySql.Data.MySqlClient;
 
 namespace Server.Servers
 {
-    public class MySqlServer
+    public static class MySqlServer
     {
-        private readonly MySqlConnection _connection;
+        private const string Server = "localhost";
+        private const string DatabaseName = "FuckPrivacy";
+        private const string UserName = "root";
+        private const string Password = "Frantisek1235.";
+        private static readonly MySqlConnection Connection = new MySqlConnection($"Server={Server}; database={DatabaseName}; UID={UserName}; password={Password}");
 
         /// <summary>
-        /// Initializes server and MySQL connection
+        /// Starts MySQL connection
         /// </summary>
-        public MySqlServer() {
-            const string server = "localhost";
-            const string databaseName = "FuckPrivacy";
-            const string userName = "root";
-            const string password = "Frantisek1235.";
-            var connString = $"Server={server}; database={databaseName}; UID={userName}; password={password}";
-            _connection = new MySqlConnection(connString);
-            _connection.Open();
+        public static void Run() {
+            Connection.Open();
         }
 
         /// <summary>
@@ -28,9 +26,9 @@ namespace Server.Servers
         /// </summary>
         /// <param name="username"></param>
         /// <param name="password"></param>
-        public void AddUser(string username, string password) {
+        public static void AddUser(string username, string password) {
             var sqlCommand = $"INSERT INTO users (username, password) value ('{username}','{password}')";
-            var cmd = new MySqlCommand(sqlCommand, _connection);
+            var cmd = new MySqlCommand(sqlCommand, Connection);
             cmd.ExecuteNonQuery();
         }
 
@@ -42,10 +40,10 @@ namespace Server.Servers
         /// <exception cref="ArgumentNullException">If user does not exist in database</exception>
         /// <exception cref="ArgumentException">If is passed wrong password</exception>
         /// <exception cref="NotImplementedException"></exception>
-        public User GetUser(string username, string password) {
+        public static User GetUser(string username, string password) {
             if (UserExist(username) == false) throw new ArgumentNullException();
             var sqlCommand = $"Select * from users where username='{username}'";
-            var cmd = new MySqlCommand(sqlCommand, _connection);
+            var cmd = new MySqlCommand(sqlCommand, Connection);
             using (var reader = cmd.ExecuteReader()) {
                 while (reader.Read()) {
                     var un = reader["username"].ToString();
@@ -63,7 +61,7 @@ namespace Server.Servers
         /// </summary>
         /// <param name="username"></param>
         /// <returns></returns>
-        public bool UserExist(string username) {
+        public static bool UserExist(string username) {
             var users = GetUsers();
             return users.Any(user => user[0] == username);
         }
@@ -72,10 +70,10 @@ namespace Server.Servers
         /// Fetches user's username and password to list of arrays
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<string[]> GetUsers() {
+        private static IEnumerable<string[]> GetUsers() {
             var users = new List<string[]>();
             const string sqlCommand = "Select * from users";
-            var cmd = new MySqlCommand(sqlCommand, _connection);
+            var cmd = new MySqlCommand(sqlCommand, Connection);
             using (var reader = cmd.ExecuteReader()) {
                 while (reader.Read()) {
                     var username = reader["username"].ToString();

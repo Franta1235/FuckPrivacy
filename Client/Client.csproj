@@ -39,18 +39,10 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="AsynchronousClient.cs" />
+        <Compile Include="ClientMethods.cs" />
         <Compile Include="Program.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
-    </ItemGroup>
-    <ItemGroup>
-      <ProjectReference Include="..\FuckPrivacyTests\FuckPrivacyTests.csproj">
-        <Project>{657bfaaf-ca30-4947-a13c-fd372df82aa1}</Project>
-        <Name>FuckPrivacyTests</Name>
-      </ProjectReference>
-      <ProjectReference Include="..\Server\Server.csproj">
-        <Project>{530db8f8-f969-48b7-b1f4-f682de1c7a80}</Project>
-        <Name>Server</Name>
-      </ProjectReference>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

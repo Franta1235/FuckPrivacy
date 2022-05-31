@@ -1,8 +1,6 @@
 ﻿using System;
-using System.IO;
-using System.Net.NetworkInformation;
-using FuckPrivacy.Server;
-using Xamarin.Forms;
+using FuckPrivacy.Client;
+
 
 namespace FuckPrivacy.Users
 {
@@ -23,7 +21,7 @@ namespace FuckPrivacy.Users
         }
 
         public static bool UserExist(string username) {
-            return StaticServer.UserExist(username);
+            return AsynchronousClient.UserExist(username);
         }
 
         private static User GetUser(string username) {
