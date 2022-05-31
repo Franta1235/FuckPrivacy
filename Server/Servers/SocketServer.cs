@@ -25,15 +25,13 @@ namespace Server.Servers
     public static class AsynchronousSocketListener
     {
         // Thread signal.
-        private static readonly ManualResetEvent AllDone = new ManualResetEvent(false);
+        public static readonly ManualResetEvent AllDone = new ManualResetEvent(false);
 
+        // Signal for end of file.
         public const string EndOfFile = "<EOF>";
 
         [Obsolete("Obsolete")]
         public static void StartListening() {
-            // Data buffer for incoming data.
-            var bytes = new byte[1024];
-
             // Establish the local endpoint for the socket. The DNS name of the computer.
             var ipHostInfo = Dns.Resolve(Dns.GetHostName());
             var ipAddress = ipHostInfo.AddressList[0];
@@ -99,6 +97,8 @@ namespace Server.Servers
             if (content.IndexOf(EndOfFile, StringComparison.Ordinal) > -1) {
                 // All the data has been read from the client. Display it on the console.
                 Console.WriteLine($"Read {content.Length} bytes from socket.");
+                content = content.Substring(0, content.Length - EndOfFile.Length);
+                Console.WriteLine(content);
 
                 // Echo the data back to the client.
                 Send(handler, $"Done{EndOfFile}");

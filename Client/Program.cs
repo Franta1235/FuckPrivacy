@@ -7,7 +7,7 @@ using Server.Servers;
 
 namespace Client
 {
-// State object for receiving data from remote device.  
+    // State object for receiving data from remote device.  
     public class StateObject
     {
         // Client socket.  
@@ -71,7 +71,7 @@ namespace Client
                 Console.WriteLine(e.ToString());
             }
 
-            return _response.Substring(0, _response.Length - 5);
+            return _response.Substring(0, _response.Length - AsynchronousSocketListener.EndOfFile.Length);
         }
 
         private static void ConnectCallback(IAsyncResult ar) {
