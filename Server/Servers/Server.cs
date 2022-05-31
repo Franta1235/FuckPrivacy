@@ -6,12 +6,12 @@ namespace Server.Servers
     public class Server
     {
         private readonly MySqlServer _sqlServer;
-        private readonly SocketServer _socketServer;
+        //private readonly AsynchronousSocketListener _socketServer;
 
 
         public Server() {
             _sqlServer = new MySqlServer();
-            _socketServer = new SocketServer(this);
+            //_socketServer = new AsynchronousSocketListener();
         }
 
         public void AddUser(string username, string password) {

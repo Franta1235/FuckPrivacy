@@ -8,10 +8,10 @@ namespace FuckPrivacy.Server
     {
         public static bool UserExist(string username) {
             // ReSharper disable once InconsistentNaming
-            const int PORT_NO = 5000;
+            const int PORT_NO = 8001;
 
             // ReSharper disable once InconsistentNaming
-            const string SERVER_IP = "127.0.0.1";
+            const string SERVER_IP = "192.168.42.10";
 
             //---create a TCPClient object at the IP and port no.---
             var client = new TcpClient(SERVER_IP, PORT_NO);
