@@ -2,7 +2,6 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using FuckPrivacy.Server;
 using System.Threading;
 
 namespace Server.Servers
@@ -26,7 +25,9 @@ namespace Server.Servers
     public static class AsynchronousSocketListener
     {
         // Thread signal.
-        public static readonly ManualResetEvent AllDone = new ManualResetEvent(false);
+        private static readonly ManualResetEvent AllDone = new ManualResetEvent(false);
+
+        public const string EndOfFile = "<EOF>";
 
         [Obsolete("Obsolete")]
         public static void StartListening() {
@@ -95,11 +96,12 @@ namespace Server.Servers
 
             // Check for end-of-file tag. If it is not there, read more data.
             var content = state.Sb.ToString();
-            if (content.IndexOf("<EOF>", StringComparison.Ordinal) > -1) {
+            if (content.IndexOf(EndOfFile, StringComparison.Ordinal) > -1) {
                 // All the data has been read from the client. Display it on the console.
-                Console.WriteLine($"Read {content.Length} bytes from socket. \n Data : {content}");
+                Console.WriteLine($"Read {content.Length} bytes from socket.");
+
                 // Echo the data back to the client.
-                Send(handler, content);
+                Send(handler, $"Done{EndOfFile}");
             }
             else {
                 // Not all data received. Get more.
@@ -131,11 +133,13 @@ namespace Server.Servers
                 Console.WriteLine(e.ToString());
             }
         }
+    }
 
+    internal static class Program
+    {
         [Obsolete("Obsolete")]
-        public static int Main(string[] args) {
-            StartListening();
-            return 0;
+        public static void Main(string[] args) {
+            AsynchronousSocketListener.StartListening();
         }
     }
 }

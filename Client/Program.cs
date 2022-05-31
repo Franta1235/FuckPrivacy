@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
-using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using Server.Servers;
 
 namespace Client
@@ -27,7 +23,7 @@ namespace Client
         public readonly StringBuilder Sb = new StringBuilder();
     }
 
-    public class AsynchronousClient
+    public static class AsynchronousClient
     {
         // The port number for the remote device.  
         private const int Port = 11000;
@@ -40,7 +36,9 @@ namespace Client
         // The response from the remote device.  
         private static string _response = string.Empty;
 
-        public static void StartClient(string data) {
+        public static string StartClient(string data) {
+            Reset();
+
             // Connect to a remote device.  
             try {
                 // Establish the remote endpoint for the socket.
@@ -55,7 +53,7 @@ namespace Client
                 ConnectDone.WaitOne();
 
                 // Send data to the remote device.  
-                Send(client, $"{data}<EOF>");
+                Send(client, $"{data}{AsynchronousSocketListener.EndOfFile}");
                 SendDone.WaitOne();
 
                 // Receive the response from the remote device.  
@@ -63,7 +61,7 @@ namespace Client
                 ReceiveDone.WaitOne();
 
                 // Write the response to the console.  
-                Console.WriteLine($"Response received : {_response}");
+                //Console.WriteLine($"Response received : {_response}");
 
                 // Release the socket.  
                 client.Shutdown(SocketShutdown.Both);
@@ -72,6 +70,8 @@ namespace Client
             catch (Exception e) {
                 Console.WriteLine(e.ToString());
             }
+
+            return _response.Substring(0, _response.Length - 5);
         }
 
         private static void ConnectCallback(IAsyncResult ar) {
@@ -124,7 +124,7 @@ namespace Client
                     client.BeginReceive(state.Buffer, 0, StateObject.BufferSize, 0, new AsyncCallback(ReceiveCallback), state);
                 }
                 else {
-                    // All the data has arrived; put it in response.  
+                    // All the data has arrived; put it in response. 
                     if (state.Sb.Length > 1) {
                         _response = state.Sb.ToString();
                     }
@@ -143,7 +143,7 @@ namespace Client
             var byteData = Encoding.ASCII.GetBytes(data);
 
             // Begin sending the data to the remote device.  
-            client.BeginSend(byteData, 0, byteData.Length, 0, new AsyncCallback(SendCallback), client);
+            client.BeginSend(byteData, 0, data.Length, 0, new AsyncCallback(SendCallback), client);
         }
 
         private static void SendCallback(IAsyncResult ar) {
@@ -162,15 +162,28 @@ namespace Client
                 Console.WriteLine(e.ToString());
             }
         }
+
+        private static void Reset() {
+            ConnectDone.Reset();
+            SendDone.Reset();
+            ReceiveDone.Reset();
+        }
+
+        public static byte[] StringToBytes(string s) {
+            return Encoding.ASCII.GetBytes(s);
+        }
+
+        public static string BytesToString(byte[] bytes) {
+            return Encoding.ASCII.GetString(bytes);
+        }
     }
 
     internal static class Program
     {
         public static void Main(string[] args) {
-            for (var i = 0; i < 1; i++) {
-                AsynchronousClient.StartClient(i.ToString());
-                //var task = AsynchronousClient.StartClient("i");
-                //task.Wait();
+            for (var i = 0; i < 1000; i++) {
+                var res = AsynchronousClient.StartClient(i.ToString());
+                Console.WriteLine(res);
             }
         }
     }
